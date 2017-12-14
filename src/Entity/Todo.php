@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource()
  * @ORM\Entity
  * @ORM\Table(name="todo")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Todo
 {
@@ -30,6 +31,10 @@ class Todo
      * @ORM\Column(type="boolean")
      */
     private $isCompleted = false;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     /**
      * @return mixed
@@ -85,5 +90,21 @@ class Todo
     public function setIsCompleted($isCompleted): void
     {
         $this->isCompleted = $isCompleted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setCreatedAt(): void
+    {
+        $this->createdAt = new \DateTime();
     }
 }
