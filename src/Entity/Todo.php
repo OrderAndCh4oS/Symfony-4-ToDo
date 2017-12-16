@@ -6,7 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(attributes={"pagination_items_per_page"=5})
  * @ORM\Entity
  * @ORM\Table(name="todo")
  * @ORM\HasLifecycleCallbacks()
