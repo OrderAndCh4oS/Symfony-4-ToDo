@@ -1,3 +1,9 @@
 api_platform:
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
+
+services:
+    todo.is_completed_filter:
+        parent: 'api_platform.doctrine.orm.boolean_filter'
+        arguments: [ { isCompleted: ~ } ]
+        tags: [ 'api_platform.filter' ]
