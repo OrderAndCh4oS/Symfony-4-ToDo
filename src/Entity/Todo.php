@@ -7,8 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource(
- *     attributes={"pagination_items_per_page"=5,"filters"={"todo.is_completed_filter"}},
- *
+ *     attributes={
+ *         "pagination_items_per_page"=5,
+ *         "filters"={
+ *              "todo.is_completed_filter",
+ *              "todo.order_filter"
+ *          }
+ *     }
  * )
  * @ORM\Entity
  * @ORM\Table(name="todo")
@@ -38,6 +43,10 @@ class Todo
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $completedAt = null;
 
     /**
      * @return mixed
@@ -92,6 +101,11 @@ class Todo
      */
     public function setIsCompleted($isCompleted): void
     {
+        if ($isCompleted == true) {
+            $this->completedAt = new \DateTime();
+        } else {
+            $this->completedAt = null;
+        }
         $this->isCompleted = $isCompleted;
     }
 
@@ -109,5 +123,21 @@ class Todo
     public function setCreatedAt(): void
     {
         $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompletedAt()
+    {
+        return $this->completedAt;
+    }
+
+    /**
+     * @param mixed $completedAt
+     */
+    public function setCompletedAt($completedAt): void
+    {
+        $this->completedAt = $completedAt;
     }
 }

@@ -7,3 +7,8 @@ services:
         parent: 'api_platform.doctrine.orm.boolean_filter'
         arguments: [ { isCompleted: ~ } ]
         tags: [ 'api_platform.filter' ]
+
+    todo.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments: [ { createdAt: ~, completedAt: ~ } ]
+        tags: [ 'api_platform.filter' ]
